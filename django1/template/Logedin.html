@@ -1,0 +1,354 @@
+<!DOCTYPE html> {% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: 'Roboto', ;
+    }
+    
+    .maincontainer {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+    }
+    
+    .maincontainer::after {
+        content: " ";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgb(80, 75, 75);
+        clip-path: polygon(45% 0, 100% 0, 100% 100%, 87% 100%);
+        z-index: -1;
+    }
+    
+    .nav-container {
+        width: 100%;
+        height: 7vh;
+        background-color: transparent;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .19), 0 6px 20px 0 rgba(0, 0, 0, .20);
+    }
+    
+    .navlist {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        flex-basis: 50%;
+        margin-top: 1em;
+        height: 100%;
+    }
+    
+    .navlist .nav-li {
+        list-style: none;
+        position: relative;
+    }
+    
+    .navlist .nav-li::after {
+        content: " ";
+        position: absolute;
+        left: 0;
+        bottom: -3px;
+        border-bottom: 2px solid white;
+        width: 100%;
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform ease-in 150ms;
+    }
+    
+    .navlist .nav-li:hover::after {
+        transform: scaleX(1);
+        transform-origin: left;
+    }
+    
+    .navlist .nav-a {
+        text-decoration: none;
+        font-family: 'Open Sans', ;
+        letter-spacing: .05em;
+        font-size: 1em;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: white;
+    }
+    
+    .content-container {
+        width: 100%;
+        height: calc(100vh - 7vh);
+        overflow: hidden;
+    }
+    
+    .container {
+        width: 100%;
+        height: 215px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .19), 0 6px 20px 0 rgba(0, 0, 0, .20);
+        display: flex;
+        justify-content: space-around;
+        background-color: white;
+        border-radius: 1em;
+        padding: 2em;
+    }
+    
+    .text-content {
+        width: 700px;
+    }
+    
+    .img-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .img-content img {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 6em;
+        padding: .3em;
+        background-color: rgb(216, 212, 212);
+    }
+    .text-h4{
+        font-size: 1.0em;
+        font-weight: 600;
+    }
+
+   
+    .welcome{
+        color: rgb(50, 144, 221);
+        font-weight: 600;
+        font-size: 1.1em;
+        margin-right: 1em;
+    }
+    .search-form{
+        display: flex;
+        width:30%;
+        margin-left: auto;
+        justify-content: flex-end;
+        background-color: transparent;
+        padding-right: 5em;
+        margin-top: 1em ;
+        
+    }
+    #search-label{
+        background-color: white;
+        padding: 10px 15px;
+        border-radius: 35px;
+        color: blue;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .19), 0 6px 20px 0 rgba(0, 0, 0, .20);
+
+    }
+    #search{
+        background-color: white;
+        text-align: center !important;
+        border: none;
+        margin-top: 0.4em;
+        border-radius:15px;
+        height: 2em;
+        margin-right: -2.5em;
+        {% if request.GET.search %}
+                width: 350px;
+        {% else %}
+                width: 0px;
+        {% endif %}
+        transition: width  ease-in 200ms;
+    }
+
+    #search-label:hover + #search ,#search:hover, #search:focus{
+        width: 350px;
+    }
+
+    .checked {
+        color: orange;
+      }
+      .headder{
+          height: auto;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+      }
+      .headding{
+          width: 300px ;
+          font-size: 1.1em;
+          font-weight: 800;
+          text-align: center;
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .19), 0 6px 20px 0 rgba(0, 0, 0, .20);
+          border-radius: 15px;
+          padding: .5em;
+          align-self: center;
+      }
+      .filter{
+          width: 95%;
+          margin: auto;
+          border: 1px solid black;
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          margin-bottom: 1em;
+      }
+
+      .filter button{
+          background-color: rgb(255, 255, 255);
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .19), 0 6px 20px 0 rgba(0, 0, 0, .20);
+          color: rgb(139, 136, 136);
+          font-size: 1.2em;
+          font-weight: 700;
+          width: 35px;
+          padding: .4em;
+          border-radius: 5px;
+          border: none;
+      }
+      .filter button:hover{
+          color: black;
+          background-color: rgb(197, 222, 243);
+      }
+      .filter-btn-cover{
+          width: calc( 100% - 70px);
+          padding: 0 .5em;
+          overflow: hidden;
+      }
+      .filter-btn-groups{
+          margin-left:0px;
+          width: calc( 6em * 11);
+          overflow: hidden;
+      }
+      .filter-btn-groups button{
+          display: block;
+          border: none;
+          width: 4em;
+          margin-right: .5em;
+          padding: .2em .7em;
+          color: white;
+          background-color: rgb(129, 183, 207);
+          float: left;
+      }
+</style>
+
+<body>
+    <div class="maincontainer">
+        <div class="nav-container">
+            <ul class="navlist">
+                <li class="nav-li" onclick="logouts()"><a class="nav-a" href="">Home</a></li>
+                <li class="nav-li"><a class="nav-a" href="">About</a></li>
+                <li class="nav-item dropdown" style="list-style: none;margin-left:0">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" style="color:white"><span class="welcome">Welcome</span>{{ request.user.username }}</a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                      <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                    </div>
+                  </li>
+            </ul>
+        </div>
+        <div class="content-container">
+            <div class="cont">
+                <form  class="search-form" method="GET" >
+                    <input  id='search' type="search" name="search" {% if request.GET.search %} value="{{ request.GET.search }}" {% endif %}>
+                    <label id="search-label"  for="search"><i class="fa fa-search fa-w"></i></label>
+                </form>
+            </div>
+            <div class="row mb-4">
+                <div class="col-sm-7 " >
+                    <div class="headder">
+                        <h2 class="headding">Service Providers</h2>
+                        <button class="btn btn-info" style="float: right;">Sort By</button>
+                    </div>
+
+                   
+                   <div class="filter">
+                       <button class="left-btn"><i class="fa fa-angle-left fa-lg"></i></button>
+                       <div class="filter-btn-cover">
+                           <div class="filter-btn-groups">
+                            <button>yash</button>
+                            <button>yash</button>
+                            <button>yash</button>
+                            <button>yash</button>
+                            <button>yash</button>
+                            <button>yash</button>
+                            <button>yash</button>
+                            <button>yash</button>
+                            <button>yash</button>
+                            <button>yash</button>
+                            <button>yash</button>
+                            <button>yash</button>
+                           </div>
+                       </div>
+                       <button class="right-btn" onclick="filter_bar_scroll()" ><i class="fa fa-angle-right fa-lg"></i></button>
+                   </div>
+                    <div class="row" style="padding: 0em 2em; height:80vh; overflow-y:scroll; scrollbar-width: thin;">
+                            {% for value in userlist %}
+                                    <div class="col-sm-6">
+                                        <div class="container mb-4">
+                                            <div class="text-content">
+                                                <h4 class="text-h4">{{ value.user.username }}</h4>
+                                                <h4 class="text-h4">{{ value.phonenumber }}</h4>
+                                                <h4 class="text-h4"> {{ value.address }}</h4>
+                                                {% for x in "stars" %}
+                                                        {% if forloop.counter <= value.rating %}
+                                                            <span class="fa fa-star checked"></span>
+                                                        {% else %}
+                                                            <span class="fa fa-star"></span>
+                                                        {% endif %}
+                                                {% endfor %}
+                                                <span>( {{ value.rated_user_count}} )</span>
+                                            </div>
+                                            <div class="img-content">
+                                                <img src="{{ value.profile_pic.url }}" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                            {% endfor %}
+                    </div>
+                </div>
+                <div class="col-sm-3">
+
+                </div>
+                
+               
+            </div>
+            
+        </div>
+    </div>
+
+</body>
+
+<script>
+ var filterbar_width = $('.filter-btn-groups').width()
+ var filtercover_width = $('.filter-btn-cover').width()
+
+
+ function filter_bar_scroll(){
+    var filter_bar_margin = $('.filter-btn-groups').css('margin-left')
+    if( filter_bar_margin < filterbar_width){
+        $('.filter-btn-groups').css('margin-left',String(filtercover_width)+"px")
+    }else{
+        $('.filter-btn-groups').css('margin-left',"0px")
+    }
+ }
+ function logouts(){
+     var ans = confirm("{{ request.user.username }} sure you want to exit (Logout) ?")
+     if( ans == true){
+            window.location.href="{% url 'logout' %}"
+     }
+ }
+
+</script>
+
+</html>

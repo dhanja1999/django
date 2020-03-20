@@ -1,0 +1,209 @@
+<!DOCTYPE html> {% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: 'Roboto', ;
+    }
+    
+    .maincontainer {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+    }
+    
+    .maincontainer::after {
+        content: " ";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgb(80, 75, 75);
+        clip-path: polygon(45% 0, 100% 0, 100% 100%, 87% 100%);
+        z-index: -1;
+    }
+    
+    .nav-container {
+        width: 100%;
+        height: 7vh;
+        background-color: transparent;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .19), 0 6px 20px 0 rgba(0, 0, 0, .20);
+    }
+    
+    .navlist {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        flex-basis: 50%;
+        margin-top: 1em;
+        height: 100%;
+    }
+    
+    .navlist li {
+        list-style: none;
+        position: relative;
+    }
+    
+    .navlist li::after {
+        content: " ";
+        position: absolute;
+        left: 0;
+        bottom: -3px;
+        border-bottom: 2px solid white;
+        width: 100%;
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform ease-in 150ms;
+    }
+    
+    .navlist li:hover::after {
+        transform: scaleX(1);
+        transform-origin: left;
+    }
+    
+    .navlist a {
+        text-decoration: none;
+        font-family: 'Open Sans', ;
+        letter-spacing: .05em;
+        font-size: 1em;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: white;
+    }
+    
+    .content-container {
+        width: 100%;
+        height: calc(100vh - 7vh);
+        overflow-y: scroll;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .container {
+        width: 70%;
+        height: 450px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .19), 0 6px 20px 0 rgba(0, 0, 0, .20);
+        display: flex;
+        justify-content: space-around;
+        background-color: white;
+        border-radius: 1em;
+        padding: 2em;
+    }
+    
+    .text-content {
+        width: 700px;
+    }
+    
+    .img-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .img-content img {
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 6em;
+        padding: .3em;
+        background-color: rgb(216, 212, 212);
+    }
+    
+    h2 {
+        padding-bottom: 1.5em;
+    }
+    
+    p {
+        padding-bottom: 1.5em;
+        font-size: 1.1em;
+        line-height: 1.6em;
+    }
+    
+    button {
+        width: 150px;
+        height: 30px;
+        border: none;
+        background-color: rgb(211, 205, 205);
+        font-weight: 600;
+        position: relative;
+        border-radius: 1em;
+        z-index: 5;
+        transition: color ease-in 250ms;
+    }
+    
+    button:hover {
+        color: white;
+        cursor: pointer;
+    }
+    
+    button::after {
+        content: " ";
+        width: 100%;
+        height: 100%;
+        border-radius: 1em;
+        position: absolute;
+        left: 0;
+        top: 0%;
+        background-color: rgb(80, 75, 75);
+        transform: scale(0);
+        transform-origin: right;
+        transition: transform ease-in 300ms;
+        z-index: -1;
+    }
+    
+    button:hover::after {
+        transform: scale(1);
+        transform-origin: left;
+    }
+</style>
+
+<body>
+    <div class="maincontainer">
+        <div class="nav-container">
+            <ul class="navlist">
+                <li><a href="{% url 'startpoint' %}">Home</a></li>
+                <li><a href="">About</a></li>
+                {% block login %}
+                <li><a href="{% url 'login' %}">Login</a></li>
+                {% endblock %} {% block register %}
+                <li><a href="{% url 'register' %}">Register</a></li>
+                {% endblock %}
+            </ul>
+        </div>
+        <div class="content-container">
+            {% block pagecontent %}
+            <div class="container">
+                <div class="text-content">
+                    <h2>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum ratione dolorum distinctio. Hic nihil sapiente rerum vel ducimus, voluptates ullam, inventore accusamus consectetur
+                        exercitationem laudantium repellat cupiditate dicta aliquam facilis.Dolorum, saepe veritatis voluptatum vitae odio et ducimus error quibusdam ipsa accusantium possimus quasi porro, soluta mollitia cupiditate iusto vero? Esse, culpa.</p>
+                    <button>Read More!</button>
+                </div>
+                <div class="img-content">
+                    <img src="{% static 'one.jpg'%}" alt="">
+                </div>
+            </div>
+            {% endblock %}
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+{% extends 'one.html' %} 
+{% load crispy_forms_tags %} 
+
+{% block login %}
+
+{% endblock %}
+{% block register %}
+<li><a href="{% url 'register' %}">Register</a></li>
+{% endblock %}
+{% block pagecontent %}
+
+<style>
+    .forms {
+        width: 30%;
+        height: 350px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .19), 0 6px 20px 0 rgba(0, 0, 0, .20);
+        background-color: white;
+        border-radius: 1em;
+        padding: 2em;
+    }
+    
+    .form-btn {
+        width: 150px;
+        height: 30px;
+        border: none;
+        background-color: rgb(211, 205, 205);
+        font-weight: 600;
+        background-color: green;
+        border-radius: 1em;
+    }
+</style>
+<form class="forms" method="POST">
+    <h2 style="padding: 0;">Login</h2>
+    {% csrf_token %} {{ form|crispy }}
+    <button class="form-btn" style="color: white;">Login</button>
+</form>
+{% endblock %}
